@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const userTableController = require('../App/UserTableController');
 
-router.get('/', (req,res) => res.status(200).json('hello world!'));
+router.get('/', userTableController);
 
 module.exports = router;

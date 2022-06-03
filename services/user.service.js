@@ -1,4 +1,5 @@
 const User = require('../db/schemas/User');
+const USERS_PER_PAGE = 100;
 
 
 async function createUser(details) {
@@ -14,7 +15,7 @@ async function createUser(details) {
 
 async function getUser(filter = {}) {
     try {
-        const user = await User.find(filter).exec();
+        const user = await User.find(filter).limit(USERS_PER_PAGE).exec();
         return user;
     }
     catch(err) {
