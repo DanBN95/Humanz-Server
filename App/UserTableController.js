@@ -7,14 +7,11 @@ const jsonStream = StreamArray.withParser();
 
 async function userTableController(req, res) {
     try {
-        console.log("user table controller");
-        const { pageNum, lastID = null } = req.query;
+        const { lastID = null } = req.query;
 
         let allUsers;
         if (lastID) {
             allUsers = await getUser({ _id: { $gte: lastID }});
-            //console.log(allUsers.length);
-            //console.log(allUsers);
         } else {
             allUsers = await getUser();
         }
@@ -28,15 +25,6 @@ async function userTableController(req, res) {
 
         const userLastID = allUsers[allUsers.length - 1]._id;
 
-
-        // fs.createReadStream(allUsers, { encoding: 'utf-8' }).pipe(jsonStream.input);
-        
-        // jsonStream.on('data', ({key, value}) => {
-        //     console.log(key,value)
-        // })
-
-        console.log(allUsers[0]);
-        console.log(userLastID);
         res.status(200).json({
             message: "Successfully get users from db",
             allUsers,

@@ -15,7 +15,7 @@ async function createUser(details) {
 
 async function getUser(filter = {}) {
     try {
-        const user = await User.find(filter).limit(USERS_PER_PAGE).exec();
+        const user = await User.find(filter).sort('Name').limit(USERS_PER_PAGE).exec();
         return user;
     }
     catch(err) {
@@ -35,7 +35,7 @@ async function updateUser(filter, newDetails) {
      return false;
 }
 
-async function deleteUser(filter) {
+async function deletedUser(filter) {
     try {
         const deletedUser = await User.findOneAndDelete(filter).exec();
         if (!deletedUser) {
@@ -49,9 +49,14 @@ async function deleteUser(filter) {
     return false;
 }
 
+async function deleteAllUsers() {
+    return await User.deleteMany({});
+}
+
 module.exports = { 
     createUser,
     getUser,
     updateUser,
-    deleteUser
+    deletedUser,
+    deleteAllUsers,
 }
